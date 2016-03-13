@@ -10,8 +10,8 @@ package tugasgedepbo;
  * @author Muhammad 'Aizul F
  */
 public class Gerbong {
-    int maxPenumpang;
-    String Kelas;
+    private int maxPenumpang;
+    private String Kelas;
     
     public void setKelas (String Kelas){
         this.Kelas = Kelas;
