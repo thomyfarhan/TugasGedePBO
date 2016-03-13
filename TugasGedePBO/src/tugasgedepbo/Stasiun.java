@@ -10,8 +10,8 @@ package tugasgedepbo;
  * @author Muhammad 'Aizul F
  */
 public class Stasiun {
-    String namaStasiun;
-    String kota;
+    private String namaStasiun;
+    private String kota;
     
     public Stasiun(String namaStasiun,String kota){
         this.namaStasiun = namaStasiun;
