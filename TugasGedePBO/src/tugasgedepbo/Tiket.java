@@ -25,10 +25,6 @@ public class Tiket {
         this.tanggalPesan = tanggalPesan;
     }
     
-    void tentukanHarga(){
-        
-    }
-
     public void setNamaPenumpang (String namaPenumpang) {
         this.namaPenumpang = namaPenumpang;
     }
