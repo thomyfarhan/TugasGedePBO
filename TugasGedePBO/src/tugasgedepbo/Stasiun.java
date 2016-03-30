@@ -17,4 +17,20 @@ public class Stasiun {
         this.namaStasiun = namaStasiun;
         this.kota = kota;
     }
+
+    public void setNamaStasiun(String namaStasiun) {
+        this.namaStasiun = namaStasiun;
+    }
+
+    public void setKota(String kota) {
+        this.kota = kota;
+    }
+
+    public String getNamaStasiun() {
+        return namaStasiun;
+    }
+
+    public String getKota() {
+        return kota;
+    }
 }
