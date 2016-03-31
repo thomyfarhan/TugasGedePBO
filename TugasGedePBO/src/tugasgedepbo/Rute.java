@@ -17,13 +17,17 @@ public class Rute {
     private Stasiun tujuan;
     private Date berangkat;
     private Date tiba;
-    private double price;
-    private ArrayList<Tiket> tickets;
 
-    public void setTickets(ArrayList<Tiket> tickets) {
-        this.tickets = tickets;
+    public Rute(Stasiun awal, Stasiun tujuan, Date berangkat, Date tiba) {
+        this.awal = awal;
+        this.tujuan = tujuan;
+        this.berangkat = berangkat;
+        this.tiba = tiba;
     }
 
+    Rute() {
+            }
+    
     /**
      * @return the awal
      */
@@ -81,25 +85,8 @@ public class Rute {
     }
 
     /**
-     * @return the price
-     */
-    public double getPrice() {
-        return price;
-    }
-
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    /**
      * @return the tickets
      */
-    public ArrayList<Tiket> getTickets() {
-        return tickets;
-    }
 
     void setAwal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -17,15 +17,14 @@ public class Tiket {
     private String kontak;
     private Date tanggalPesan;
     private int harga;
-    
-    public Tiket (String namaPenumpang, long idPenumpang, String kontak, Date tanggalPesan) {
+
+    public Tiket(String namaPenumpang, long idPenumpang, String kontak, Date tanggalPesan, int harga) {
         this.namaPenumpang = namaPenumpang;
         this.idPenumpang = idPenumpang;
         this.kontak = kontak;
         this.tanggalPesan = tanggalPesan;
+        this.harga = harga;
     }
-    
-    void tentukanHarga(){}
 
     public void setNamaPenumpang (String namaPenumpang) {
         this.namaPenumpang = namaPenumpang;

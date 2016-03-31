@@ -28,6 +28,67 @@ public class Application {
     private static final String fortang = "yyyy-MM-dd HH:mm";
     public static SimpleDateFormat sdf = new SimpleDateFormat(fortang);
     
+    public static ArrayList<Tiket> tempTickets = new ArrayList<>();
+    public static ArrayList<Stasiun> tempStation = new ArrayList<>();
+    public static ArrayList<Kereta> tempKereta = new ArrayList<>();
+    public static ArrayList<Gerbong> tempGerbong = new ArrayList<>();
+    public static Gson gson = new GsonBuilder().create();
+    //file manager
+    public static void load_ticekt() throws FileNotFoundException{
+        Reader reader;
+        reader = new InputStreamReader(new FileInputStream("ticket.json"));
+        Type listType = new TypeToken<ArrayList<Tiket>>(){
+        }.getType();
+        tempTickets = gson.fromJson(reader,listType);
+    }
+    
+    public static void load_Station() throws FileNotFoundException{
+        Reader reader;
+        reader = new InputStreamReader(new FileInputStream("station.json"));
+        Type listType = new TypeToken<ArrayList<Stasiun>>(){
+        }.getType();
+        tempStation = gson.fromJson(reader,listType);
+    }
+    public static void load_Train() throws FileNotFoundException{
+        Reader reader;
+        reader = new InputStreamReader(new FileInputStream("train.json"));
+        Type listType = new TypeToken<ArrayList<Kereta>>(){
+        }.getType();
+        tempKereta = gson.fromJson(reader,listType);
+    }
+    
+    public static void load_Gerbong() throws FileNotFoundException{
+        Reader reader;
+        reader = new InputStreamReader(new FileInputStream("gerbong.json"));
+        Type listType = new TypeToken<ArrayList<Gerbong>>(){
+        }.getType();
+        tempGerbong = gson.fromJson(reader,listType);
+    }
+    
+    public static void write_ticket() throws UnsupportedEncodingException, FileNotFoundException{
+        Writer writer;
+        writer = new OutputStreamWriter(new FileOutputStream("ticket.json") , "UTF-8");
+        gson.toJson(tempTickets,writer);
+    }
+    
+    public static void write_Station() throws UnsupportedEncodingException, FileNotFoundException, IOException{
+        Writer writer;
+        writer = new OutputStreamWriter(new FileOutputStream("station.json") , "UTF-8");
+        gson.toJson(tempStation,writer);
+        writer.close();
+    }
+    public static void write_Train() throws UnsupportedEncodingException, FileNotFoundException{
+        Writer writer;
+        writer = new OutputStreamWriter(new FileOutputStream("train.json") , "UTF-8");
+        gson.toJson(tempKereta,writer);
+    }
+    public static void write_Gerbong() throws UnsupportedEncodingException, FileNotFoundException{
+        Writer writer;
+        writer = new OutputStreamWriter(new FileOutputStream("gerbong.json") , "UTF-8");
+        gson.toJson(tempKereta,writer);
+    }
+    //end of file manager
+    
     public static void main_menu(){
         System.out.println("Welcome to Train System Information Service \n "
                 + "1. Buy Ticket \n"
@@ -44,13 +105,11 @@ public class Application {
     public static void admin_menu(){
         
         System.out.println("Hello Mr. Admin \n"
-                + "1. Manage Ticket \n"
-                + "2. Manage Station \n"
-                + "3. Manage Train \n"
-                + "4. Manage Route \n");
+                + "1. Manage Station \n"
+                + "2. Manage Route \n");
         a = sc.nextInt();
         switch (a){
-            case 4:
+            case 2:
                 try {
                     manage_route();
                 } catch (FileNotFoundException ex) {
@@ -65,8 +124,9 @@ public class Application {
     }
     
     public static void manage_route() throws FileNotFoundException{
-        Reader reader = new InputStreamReader(new FileInputStream("route.json"));
-        Gson gson = new GsonBuilder().create();
+        Reader reader;
+        reader = new InputStreamReader(new FileInputStream("route.json"));
+        
         Type listType = new TypeToken<ArrayList<Rute>>(){
         }.getType();
         ArrayList<Rute> routes = gson.fromJson(reader,listType);
@@ -86,11 +146,33 @@ public class Application {
 
         switch(a){
             case 1:
-                //tampilkan daftar kereta dan stasiun
+                load_Station();
                 Rute baru = new Rute();
-                baru.setAwal(new Stasiun("bandung","Bandung"));
-                System.out.println("not yet");
-                break;
+                for (Stasiun stat : tempStation) {
+                    System.out.println(stat.getKota() + "in" + stat.getNamaStasiun());
+                }
+                System.out.println("select initial station");
+                a = sc.nextInt();
+                baru.setAwal(tempStation.get(a));
+                
+                System.out.println("select destination station");
+                baru.setTujuan(tempStation.get(sc.nextInt()));
+                
+                System.out.println("enter departure date time"+fortang);
+                try {
+                    baru.setBerangkat(sdf.parse(sc.nextLine()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                System.out.println("enter arial date time");
+                try {
+                    baru.setTiba(sdf.parse(sc.next()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                routes.add(baru);
             case 2:
                 routes = udel_route(routes);
         }
@@ -110,19 +192,16 @@ public class Application {
         Rute temp = routes.get(a);
         int x = a;
         ArrayList<Rute> sementara = routes;
-        System.out.println(temp.getAwal());
-        System.out.println(temp.getTujuan());
+        System.out.println(temp.getAwal().getKota()+"("+temp.getAwal().getNamaStasiun()+")");
+        System.out.println(temp.getTujuan()+"("+temp.getTujuan().getNamaStasiun()+")");
         System.out.println(temp.getBerangkat());
         System.out.println(temp.getTiba());
-        System.out.println(temp.getPrice());
         System.out.println("\n what change? \n"
                 + "1. initial station \n"
-                + "2. destiny \n"
-                + "3. change departure time \n"
-                + "4. change arrival time \n"
-                + "5. change price \n"
-                + "6. manage ticket order \n"
-                + "7. delete it"
+                + "2. destination \n"
+                + "3. departure time \n"
+                + "4. arrival time \n"
+                + "5. or delete it \n"
                 );
         a = sc.nextInt();
         switch(a){
@@ -151,13 +230,6 @@ public class Application {
                 }
                 break;
             case 5:
-                c = sc.nextDouble();
-                temp.setPrice(c);
-                break;
-            case 6:
-                temp.setTickets(manage_ticket(temp.getTickets()));
-                break;
-            case 7:
                 sementara.remove(x);
                 return sementara;
         }
@@ -175,5 +247,9 @@ public class Application {
         a = sc.nextInt();
         sementara.remove(a);
         return sementara;   
+    }
+
+    private static void manage_Station() {
+        
     }
 }

@@ -5,6 +5,8 @@
  */
 package tugasgedepbo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Muhammad 'Aizul F
@@ -12,6 +14,27 @@ package tugasgedepbo;
 public class Gerbong {
     private int maxPenumpang;
     private String Kelas;
+    private ArrayList<Tiket> tickets;
+
+    public int getMaxPenumpang() {
+        return maxPenumpang;
+    }
+
+    public String getKelas() {
+        return Kelas;
+    }
+
+    public ArrayList<Tiket> getTickets() {
+        return tickets;
+    }
+
+    public void setMaxPenumpang(int maxPenumpang) {
+        this.maxPenumpang = maxPenumpang;
+    }
+
+    public void setTickets(ArrayList<Tiket> tickets) {
+        this.tickets = tickets;
+    }
     
     public void setKelas (String Kelas){
         this.Kelas = Kelas;
