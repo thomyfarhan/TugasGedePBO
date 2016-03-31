@@ -20,6 +20,10 @@ public class Rute {
     private double price;
     private ArrayList<Tiket> tickets;
 
+    public void setTickets(ArrayList<Tiket> tickets) {
+        this.tickets = tickets;
+    }
+
     /**
      * @return the awal
      */
@@ -95,5 +99,9 @@ public class Rute {
      */
     public ArrayList<Tiket> getTickets() {
         return tickets;
+    }
+
+    void setAwal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

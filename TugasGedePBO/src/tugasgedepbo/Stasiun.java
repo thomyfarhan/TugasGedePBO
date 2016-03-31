@@ -18,6 +18,10 @@ public class Stasiun {
         this.kota = kota;
     }
 
+    Stasiun() {
+        
+    }
+
     public void setNamaStasiun(String namaStasiun) {
         this.namaStasiun = namaStasiun;
     }
