@@ -5,6 +5,11 @@
  */
 package tugasgedepbo;
 
+import model.Gerbong;
+import model.Rute;
+import model.Stasiun;
+import model.Tiket;
+import model.Kereta;
 import java.util.*;
 import java.io.*;
 import com.google.gson.*;
@@ -14,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.*;
 
 
 /**

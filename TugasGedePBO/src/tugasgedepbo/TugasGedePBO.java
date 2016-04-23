@@ -20,10 +20,14 @@ import java.io.Writer;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Kereta;
 
 /**
  *
@@ -36,7 +40,7 @@ public class TugasGedePBO {
      */
     public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException, IOException {
 
-          Application.main_menu();
+//          Application.main_menu();
 //        ArrayList<Rute> coba = new ArrayList<>();
 //        coba.add(new Rute(new Stasiun("Bandung","KiaraCondong"),new Stasiun("Yogyakarta","Tugu"),new Date(),new Date()));
 //        Gson gson = new GsonBuilder().create();
@@ -90,7 +94,17 @@ public class TugasGedePBO {
 //        } catch (IOException ex) {
 //            Logger.getLogger(TugasGedePBO.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+        Gson gson = new Gson();
+        Type listOfTestObject = new TypeToken<List<Kereta>>(){}.getType();
 
+        Writer os = new OutputStreamWriter(new FileOutputStream("keretas.json"));
+        List<Kereta> keretas = Collections.synchronizedList(new ArrayList<Kereta>());
+        keretas.add(new Kereta("Malabar",5));
+        keretas.add(new Kereta("Lodaya",3));
+        keretas.add(new Kereta("Mutiara Timur",6));
+        
+        gson.toJson(keretas,os);
+        os.close();
 
     }
     

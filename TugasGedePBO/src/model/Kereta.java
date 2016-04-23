@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tugasgedepbo;
+package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
  * @author iwannadb
  */
 public class Kereta {
-    private ArrayList<Gerbong> gerbongs;
+    private List<Gerbong> gerbongs;
     private String nama;
     private int maxGerbong;
     private Rute rute;
@@ -20,6 +22,7 @@ public class Kereta {
     public Kereta(String nama,int maxGer){
         this.nama = nama;
         maxGerbong = maxGer;
+        gerbongs = Collections.synchronizedList(new ArrayList<Gerbong>());
     }
     
     public void addGerbong(Gerbong g){
@@ -29,7 +32,7 @@ public class Kereta {
             System.out.print("penuh");
     }
     
-    private ArrayList<Gerbong> getGerbongs(){
+    private List<Gerbong> getGerbongs(){
         return gerbongs;
     }
     public void setRoute(Rute ru){
@@ -40,14 +43,14 @@ public class Kereta {
     }
 
     /**
-     * @return the nama
+     * @return the 
      */
     public String getNama() {
         return nama;
     }
 
     /**
-     * @param nama the nama to set
+     * @param nama the to set
      */
     public void setNama(String nama) {
         this.nama = nama;
