@@ -29,11 +29,18 @@ public class Aplikasi {
 
     public Aplikasi() {
         this.keretas = Collections.synchronizedList(new ArrayList<Kereta>());
+        //masukin data dari file
     }
     
     public void loadKeretas() throws IOException{
         //load daftar kereta dari file
+        Gson gson = new Gson();
+        Type listOfKereta = new TypeToken<List<Kereta>>(){}.getType();
         Reader is = new InputStreamReader(new FileInputStream(keretajsonfile));
+        keretas = Collections.synchronizedList(
+                (List<Kereta>) gson.fromJson(is,listOfKereta)
+        );
+        is.close();
         
     }
 
@@ -44,8 +51,6 @@ public class Aplikasi {
     public void writeKeretas(Kereta k) throws IOException{
         //tulis keretas ke file
         Gson gson = new Gson();
-        Type listOfTestObject = new TypeToken<List<Kereta>>(){}.getType();
-
         Writer os = new OutputStreamWriter(new FileOutputStream(keretajsonfile));
         keretas.add(k);
         
